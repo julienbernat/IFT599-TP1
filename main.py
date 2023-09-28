@@ -25,18 +25,32 @@ def cosine_distance(vector1, vector2):
         distance += vector1[i] * vector2[i]
     return distance
 
+# Create a function that calculates the centroid of a class (It is the average of the class)
+# Note that the class is an array of vectors
+def centroid(data):
+    centroid = []
+    for i in range(1, len(data[0])):
+        centroid.append(0)
+    for i in range(0, len(data)):
+        for j in range(1, len(data[i])):
+            centroid[j-1] += data[i][j]
+    for i in range(0, len(centroid)):
+        centroid[i] /= len(data)
+    centroid.insert(0, "centroid")
+    return centroid
+
 # Create a function that calculate the distance intra class
-# The intra class distance is the maximum distance between two points of the same class
+# The intra class distance is the maximum distance between every vector of the class and its centroid
 def intra_class_distance_euclidean(separated_data):
     intra_class_distance = {}
     for class_label in separated_data:
-        max_distance = 0
+        intra_class_distance[class_label] = 0
+        centroid_class = centroid(separated_data[class_label])
+        print(centroid_class)
         for i in range(1, len(separated_data[class_label])):
-            for j in range(i+1, len(separated_data[class_label])):
-                distance = euclidean_distance(separated_data[class_label][i], separated_data[class_label][j])
-                if distance > max_distance:
-                    max_distance = distance
-        intra_class_distance[class_label] = max_distance
+            distance = euclidean_distance(separated_data[class_label][i], centroid_class)
+            if distance > intra_class_distance[class_label]:
+                intra_class_distance[class_label] = distance
     return intra_class_distance
         
 # Create a function that separates the data by class
