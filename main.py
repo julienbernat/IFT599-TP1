@@ -1,8 +1,8 @@
 import pandas as pd
 
-labels_df = pd.read_csv('labels.csv')
+labels_df = pd.read_csv('../labels.csv')
 
-data_df = pd.read_csv('data.csv')
+data_df = pd.read_csv('../data.csv')
 
 # Create a function that calculates the euclidean distance between two points
 def euclidean_distance(point1, point2):
@@ -34,13 +34,11 @@ def intra_class_distance(data, labels):
 # Create a function that separates the data by class
 def separate_data_by_class(data, labels):
     separated_data = {}
-    print(labels[0][0])
-    print(labels[1])
-    print(labels[2])
     for i in range(len(data)):
-        if labels[i] not in separated_data:
-            separated_data[labels[i]] = []
-        separated_data[labels[i]].append(data[i])
+        class_label = labels[i][1]
+        if class_label not in separated_data:
+            separated_data[class_label] = []  # Initialize an empty list for each class label if it doesn't exist
+        separated_data[class_label].append(data[i])
     return separated_data
 
 separatedData = separate_data_by_class(data_df.values, labels_df.values)
