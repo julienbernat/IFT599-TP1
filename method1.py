@@ -67,10 +67,10 @@ def overlap(class1,class2,distance_function,mahalonobis=False,cov_matrix=None):
     return overlap
 
 #Extract the labels
-labels_df = pd.read_csv('../labels.csv')
+labels_df = pd.read_csv('labels.csv')
 
 #Extract the data
-data_df = pd.read_csv('../data.csv')
+data_df = pd.read_csv('data.csv')
 #print the shape of the data
 print(data_df.shape)
 
